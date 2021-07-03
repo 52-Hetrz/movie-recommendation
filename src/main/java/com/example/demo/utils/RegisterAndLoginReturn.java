@@ -1,5 +1,6 @@
 package com.example.demo.utils;
 
+import com.example.demo.VO.AdministratorVO;
 import com.example.demo.VO.UserVO;
 import com.example.demo.controller.UserController;
 
@@ -12,15 +13,22 @@ import com.example.demo.controller.UserController;
  */
 
 
-public class RegisterAndLoginReturn extends UserController {
+public class RegisterAndLoginReturn{
 
     private Boolean isSuccessful;
     private String warning;
     private UserVO userVO;
+    private AdministratorVO administratorVO;
 
     public RegisterAndLoginReturn(Boolean isSuccessful,String warning,UserVO userVO) {
         this.isSuccessful=isSuccessful;
         this.userVO=userVO;
+        this.warning=warning;
+    }
+
+    public RegisterAndLoginReturn(Boolean isSuccessful,String warning,AdministratorVO administratorVO) {
+        this.isSuccessful=isSuccessful;
+        this.administratorVO = administratorVO;
         this.warning=warning;
     }
 
@@ -52,6 +60,20 @@ public class RegisterAndLoginReturn extends UserController {
         return getIsSuccessful()+"  "+getWarning()+"  "+getUserVO().toString();
     }
 
+    public Boolean getSuccessful() {
+        return isSuccessful;
+    }
 
+    public void setSuccessful(Boolean successful) {
+        isSuccessful = successful;
+    }
+
+    public AdministratorVO getAdministratorVO() {
+        return administratorVO;
+    }
+
+    public void setAdministratorVO(AdministratorVO administratorVO) {
+        this.administratorVO = administratorVO;
+    }
 }
 

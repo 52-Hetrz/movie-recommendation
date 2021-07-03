@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 
 @Service
-public class MovieClassificationImpl implements MovieClassificationService {
+public class MovieClassificationServiceImpl implements MovieClassificationService {
 
     @Autowired
     MovieClassificationMapper movieClassificationMapper;

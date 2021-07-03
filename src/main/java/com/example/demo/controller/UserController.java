@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.VO.AdministratorVO;
 import com.example.demo.service.UserService;
 import com.example.demo.service.impl.RecommendServiceImpl;
 import com.example.demo.utils.RegisterAndLoginReturn;
@@ -48,7 +49,7 @@ public class UserController {
      */
     @GetMapping("/register")
     public RegisterAndLoginReturn register(HttpServletRequest servletRequest){
-        RegisterAndLoginReturn registerAndLoginReturn = new RegisterAndLoginReturn(false, "", null);
+        RegisterAndLoginReturn registerAndLoginReturn = new RegisterAndLoginReturn(false, "", (UserVO) null);
         String name = servletRequest.getParameter("name");
         String firstPassword = servletRequest.getParameter("firstPassword");
         String secondPassword = servletRequest.getParameter("secondPassword");
@@ -81,11 +82,10 @@ public class UserController {
      */
     @GetMapping("/login")
     public RegisterAndLoginReturn login(HttpServletRequest httpServletRequest){
-        System.out.println(1);
         String name = httpServletRequest.getParameter("name");
         String password = httpServletRequest.getParameter("password");
         RegisterAndLoginReturn registerAndLoginReturn =
-                new RegisterAndLoginReturn(false, "",null);
+                new RegisterAndLoginReturn(false, "",(UserVO) null);
         if(userService.searchUserIdByName(name) == null){
             registerAndLoginReturn.setWarning("用户名不存在");
         }else{
@@ -109,7 +109,7 @@ public class UserController {
         String secondPassword = httpServletRequest.getParameter("secondPassword");
         String databasePassword = userService.searchPasswordByUserName(name);
         RegisterAndLoginReturn registerAndLoginReturn =
-                new RegisterAndLoginReturn(false, "",null);
+                new RegisterAndLoginReturn(false, "",(UserVO) null);
         if(userService.searchUserIdByName(name) == null){
             registerAndLoginReturn.setWarning("用户名不存在");
             return registerAndLoginReturn;

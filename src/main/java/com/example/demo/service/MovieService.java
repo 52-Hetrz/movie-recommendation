@@ -56,4 +56,10 @@ public interface MovieService {
      */
     void insertMovie(Movie movie);
 
+    /**
+     * 管理员根据电影id，从数据库中删除电影
+     * @param id 电影id
+     */
+    void deleteMovieById(Integer id);
+
 }

@@ -75,4 +75,11 @@
         values(#{name}, #{area}, #{introduction}, #{director},#{actor}, #{publish_year}, #{time}, #{type}, #{image},#{mv})
     </insert>
 
+    <delete id="deleteMovieById">
+        delete
+        from movie
+        where id = #{param1}
+    </delete>
+
+
 </mapper>

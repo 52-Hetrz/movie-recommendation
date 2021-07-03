@@ -35,4 +35,9 @@ public class PageRedirectController {
 		return "searchPage";
 	}
 
+	@RequestMapping("/administratorpage")
+	public String showAdministratorPage() {
+		return "administratorLoginPage";
+	}
+
 }

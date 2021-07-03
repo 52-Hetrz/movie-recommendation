@@ -7,11 +7,9 @@ import com.example.demo.service.impl.AdministratorServiceImpl;
 import com.example.demo.service.impl.MovieClassificationServiceImpl;
 import com.example.demo.service.impl.MovieServiceImpl;
 import com.example.demo.utils.RegisterAndLoginReturn;
-import com.example.demo.utils.ToImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -75,6 +73,14 @@ public class AdministratorController {
                 new Movie(name,area,introduction,director,
                 actor, publish_year, time,type, imagePath, mv));
     }
+
+    @GetMapping("/administrator/deleteMovie")
+    void deleteMovie(HttpServletRequest httpServletRequest){
+        String movieid = httpServletRequest.getParameter("movieid");
+        String adminid = httpServletRequest.getParameter("adminid");
+        movieService.deleteMovieById(Integer.parseInt(movieid));
+    }
+
 
     /**
      * 检测两次输入的密码是否合法

@@ -17,4 +17,19 @@
         where classifid = #{classifid}
     </select>
 
+    <delete id="deleteMovieClassification">
+        DELETE
+        from movie_classification;
+    </delete>
+
+    <insert id="updateMovieClassification">
+        INSERT
+        into movie_classification
+            (
+                select classifid, id
+                from classification_name, movie
+                WHERE movie.type LIKE CONCAT('%',classification_name.`name`,'%')
+            )
+    </insert>
+
 </mapper>

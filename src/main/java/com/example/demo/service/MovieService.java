@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 
 import com.example.demo.VO.MovieVO;
+import com.example.demo.dao.Movie;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,5 +49,11 @@ public interface MovieService {
      * @return ArrayList<MovieVO>: 符合要求的电影VO集合
      */
     ArrayList<MovieVO> searchHotMovies();
+
+    /**
+     * 向数据库中插入电影
+     * @param movie dao
+     */
+    void insertMovie(Movie movie);
 
 }

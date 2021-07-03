@@ -2,11 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.VO.AdministratorVO;
 import com.example.demo.dao.Administrator;
+import com.example.demo.dao.Movie;
 import com.example.demo.service.impl.AdministratorServiceImpl;
+import com.example.demo.service.impl.MovieClassificationServiceImpl;
+import com.example.demo.service.impl.MovieServiceImpl;
 import com.example.demo.utils.RegisterAndLoginReturn;
+import com.example.demo.utils.ToImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +29,13 @@ public class AdministratorController {
     @Autowired
     AdministratorServiceImpl administratorService;
 
-    @GetMapping("/administratorLogin")
+    @Autowired
+    MovieServiceImpl movieService;
+
+    @Autowired
+    MovieClassificationServiceImpl movieClassificationService;
+
+    @GetMapping("/administrator/login")
     public RegisterAndLoginReturn administratorLogin(HttpServletRequest httpServletRequest){
         String name = httpServletRequest.getParameter("name");
         String password = httpServletRequest.getParameter("password");
@@ -45,6 +56,24 @@ public class AdministratorController {
             }
         }
         return registerAndLoginReturn;
+    }
+
+    @PostMapping("/administrator/insertMovie")
+    void insertMovie(HttpServletRequest httpServletRequest){
+        String name = httpServletRequest.getParameter("name");
+        String area = httpServletRequest.getParameter("area");
+        String introduction = httpServletRequest.getParameter("introduction");
+        String director = httpServletRequest.getParameter("director");
+        String actor = httpServletRequest.getParameter("actor");
+        String publish_year = httpServletRequest.getParameter("publish_year");
+        String time = httpServletRequest.getParameter("time");
+        String type = httpServletRequest.getParameter("type");
+        String imagePath = httpServletRequest.getParameter("image");
+        //String imagePath = ToImageUtil.filePath(ToImageUtil.base64ToByte(image));
+        String mv = "//";
+        movieService.insertMovie(
+                new Movie(name,area,introduction,director,
+                actor, publish_year, time,type, imagePath, mv));
     }
 
     /**

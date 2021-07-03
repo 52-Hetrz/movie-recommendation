@@ -10,4 +10,6 @@ import java.util.ArrayList;
 public interface MovieClassificationMapper {
 
     ArrayList<MovieClassification> selectMovieClassification(int classifid);
+    void updateMovieClassification();
+    void deleteMovieClassification();
 }

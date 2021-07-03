@@ -40,6 +40,21 @@ public class Movie {
         setMv(mv);
 
     }
+    public Movie(String name, String area, String introduction,
+                 String director, String actor, String publish_year,
+                 String time, String type, String image, String mv){
+        setName(name);
+        setArea(area);
+        setIntroduction(introduction);
+        setDirector(director);
+        setActor(actor);
+        setPublish_year(publish_year);
+        setTime(time);
+        setType(type);
+        setImage(image);
+        setMv(mv);
+
+    }
 
     public int getId() {
         return id;

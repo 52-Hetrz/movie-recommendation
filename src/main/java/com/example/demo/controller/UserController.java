@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.VO.AdministratorVO;
-import com.example.demo.service.UserService;
 import com.example.demo.service.impl.RecommendServiceImpl;
 import com.example.demo.utils.RegisterAndLoginReturn;
 import com.example.demo.VO.UserVO;
@@ -11,10 +9,7 @@ import com.example.demo.service.impl.CommentServiceImpl;
 import com.example.demo.service.impl.MovieServiceImpl;
 import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +33,6 @@ public class UserController {
     @Autowired
     CommentServiceImpl commentService;
 
-    //update
     @Autowired
     RecommendServiceImpl recommendService;
 

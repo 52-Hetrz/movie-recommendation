@@ -69,4 +69,10 @@
         where movie.id = hotmovie.movieid
     </select>
 
+    <insert id="insertMovie">
+        insert
+        into movie(name, area, introduction, director,actor, publish_year, time, type, image, mv)
+        values(#{name}, #{area}, #{introduction}, #{director},#{actor}, #{publish_year}, #{time}, #{type}, #{image},#{mv})
+    </insert>
+
 </mapper>

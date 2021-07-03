@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.MovieClassificationMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.dao.MovieClassification">
+        <result column="classifid" property="classifid" jdbcType="INTEGER" />
+        <result column="movieid" property="movieid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectMovieClassification" resultType="com.example.demo.dao.MovieClassification">
+        select *
+        from movie_classification
+        where classifid = #{classifid}
+    </select>
+
+</mapper>

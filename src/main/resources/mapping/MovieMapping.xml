@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.MovieMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.dao.Movie">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="area" property="area" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="director" property="director" jdbcType="VARCHAR"/>
+        <result column="actor" property="actor" jdbcType="VARCHAR"/>
+        <result column="publish_year" property="publish_year" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="mv"  property="mv" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectCollectMoviesByUserId"  resultType="com.example.demo.dao.Movie">
+        select * from movie
+        where id in (
+            select movieid
+            from collect_movie
+            where userid = #{userid}
+        )
+    </select>
+
+    <select id="selectMovieNameById" resultType="String">
+        select name
+        from movie
+        where id = #{id}
+    </select>
+
+    <select id="selectMovieById" resultType="com.example.demo.dao.Movie">
+        select *
+        from movie
+        where id = #{id}
+    </select>
+
+    <select id="fuzzySelectMovieByName" resultType="com.example.demo.dao.Movie">
+        select *
+        from movie
+        where name like '%${name}%'
+        order by score DESC
+        limit 0,10
+    </select>
+
+    <select id="fuzzySelectMovieByType" resultType="com.example.demo.dao.Movie">
+        select *
+        from movie
+        where type like '%${type}%'
+        order by score DESC
+        limit 0,10
+    </select>
+
+    <select id="searchHotMovies" resultType="com.example.demo.dao.Movie">
+        SELECT movie.*
+        from movie, (
+            SELECT movieid
+            from `comment`
+            GROUP BY movieid
+            ORDER BY COUNT(*) DESC
+                LIMIT	0,8) as hotmovie
+        where movie.id = hotmovie.movieid
+    </select>
+
+</mapper>

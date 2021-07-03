@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 121982
+    url: jdbc:mysql://localhost:3306/movie?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: utf-8
+    mode: html5
+    servlet:
+      content-type: text/html
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapping.xml
+  type-aliases-package: com.example.demo.dao
+
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper : debug

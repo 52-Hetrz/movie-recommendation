@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.dao.User">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="mail" property="mail" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insertUser">
+        insert
+        into user (name, password, mail, image)
+        values(#{name}, #{password}, #{mail}, #{image})
+    </insert>
+
+    <select id="selectUserIdByName" resultType="INTEGER">
+        select id
+        from user
+        where name = #{name}
+    </select>
+
+    <select id="selectUserById" resultType="com.example.demo.dao.User">
+        select *
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="selectUserNameById" resultType="String">
+        select name
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="selectPasswordByUserName" resultType="String">
+        select password
+        from user
+        where name = #{name}
+    </select>
+
+    <select id="selectPasswordById" resultType="String">
+        select password
+        from user
+        where id = #{id}
+    </select>
+
+    <update id="changePassword">
+        update user
+        set password = #{param2}
+        where name = #{param1}
+    </update>
+
+</mapper>

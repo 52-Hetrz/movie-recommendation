@@ -1,0 +1,510 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="../static/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<!-- Graph CSS -->
+<link href="../static/css/font-awesome.css" rel="stylesheet"> 
+<!-- jQuery -->
+<!-- lined-icons -->
+<link rel="stylesheet" href="../static/css/icon-font.min.css" type='text/css' />
+<!-- //lined-icons -->
+ <!-- Meters graphs -->
+<script src="../static/js/jquery-1.10.2.min.js"></script>
+	<title>EchoBuzzing</title>
+</head> 
+   
+ <body class="sticky-header left-side-collapsed" onload="logout()">
+    <section>
+      <!-- left side start-->
+		<div class="left-side sticky-left-side">
+
+			<!--logo and iconic logo start-->
+			<div class="logo">
+				<h1><a href="index">EchoBuzzing</a></h1>
+			</div>
+			<div class="logo-icon text-center">
+				<a href="index">EB</a>
+			</div>
+
+			<!--logo and iconic logo end-->
+			<div class="left-side-inner">
+
+				<!--sidebar nav start-->
+					<ul class="nav nav-pills nav-stacked custom-nav">
+						<li class="active"><a href="index"><i class="lnr lnr-home"></i><span>主页</span></a></li>
+						<li><a href="classify"><i class="lnr lnr-indent-increase"></i> <span>电影分类</span></a>  </li>
+
+						<li><a href="userPage"><i class="lnr lnr-music-note"></i><span>我的电影</span></a></li>
+					</ul>
+				<!--sidebar nav end-->
+			</div>
+		</div>
+
+		<!-- signup -->
+			<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body modal-spa">
+							<div class="sign-grids">
+								<div class="sign">
+									<div class="sign-right">
+    									<form action="register" method="post">
+        									<h3>Create your account </h3>
+        									<br>
+        									<p> <label class="register_title">用户名：</label> <input id="usr-name" type="text" name="name" value="Name" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Name';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
+        									<p> <label class="register_title">邮箱：</label><input id="usr-email" type="text" name="email" value="Email" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Email';}if(this.value==''||this.value=='Name'){this.style.color='gray';}" required style="color:gray"></p>
+        									<p> <label class="register_title">密码：</label><input id="usr-password1" type="password" name="password" value="Password1" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Password1';}if(this.value==''||this.value=='Name'){this.style.color='gray';}" required style="color:gray"></p>	
+        									<p> <label class="register_title">再次输入密码：</label><input id="usr-password2" type="password" name="password2" value="Password2" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Password2';}if(this.value==''||this.value=='Name'){this.style.color='gray';}" required style="color:gray">	</p>
+        									<p class="warning" id="register-warning"></p>
+        									<input type="button" value="CREATE ACCOUNT" onclick="userRegister()">
+    									</form>
+									</div>
+									<div class="clearfix"></div>								
+								</div>
+								<p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //signup -->
+
+		<!-- left side end-->
+		<!-- main content start-->
+		<div class="main-content">
+			<!-- header-starts -->
+			<div class="header-section">
+			<!--toggle button start-->
+			<a class="toggle-btn  menu-collapsed"><i class="fa fa-bars"></i></a>
+			<!--toggle button end-->
+			<!--notification menu start -->
+				<div class="menu-right">
+					<div class="profile_details">		
+						  <div class="col-md-4 serch-part">
+								<div id="sb-search" class="sb-search">
+									<form action="#" method="post" id="search-form">
+
+										<input class="sb-search-input" placeholder="Search" type="search" name="search" id="search-input">
+										<input class="sb-search-submit" type="button" value="" >
+										<span class="sb-icon-search" > </span>
+
+									</form>
+
+								</div>
+							</div>
+							  <!-- search-scripts -->
+									<script src="../static/js/classie.js"></script>
+									<script src="../static/js/uisearch.js"></script>
+										<script>
+											new UISearch( document.getElementById( 'sb-search' ) );
+										</script>
+									<!-- //search-scripts -->
+											 <!---->
+											  <div class="col-md-4 player">
+												<!---->
+												<!--audio-->
+												  <div>
+													  <a herf=""><span class="new" id="play1" onclick="searchFilmByType()" style="width: 140px;height: 40px;text-align:center;font-size:100%; padding-top: 7px; margin-top: 10px;">电影类型搜索</span></a>
+													  <a herf="#"><span class="new" id="play2" onclick="searchFilmByName()" style="width: 140px;height: 40px;text-align:center;font-size:100%; padding-top: 7px; margin-top: 10px;">电影名搜索</span></a>
+												  </div>
+											</div>
+											<div class="col-md-4 login-pop">
+												<div id="loginpop"> <a href="#" id="loginButton"><span>登录</span></a><a href="#" data-toggle="modal" data-target="#myModal5" id="registerButton"><span>注册</span></a>
+													<div id="loginBox">  
+    													<form action="login" method="post" id="loginForm">
+        													<fieldset id="body">
+            													<fieldset>
+                  													<label for="name">用户名</label>
+                  													<input type="text" name="name" id="name">
+            													</fieldset>
+            													<fieldset>
+                    													<label for="password">密码</label>
+                    													<input type="password" name="password" id="password">
+             													</fieldset>
+             													<p class="warning" id="login-warning"></p>
+            													<input type="button" id="login" value="Login" onclick="userlogin()">
+        													</fieldset>
+    													</form>
+													</div>
+												</div>
+
+											</div>
+										<div class="clearfix"> </div>
+								</div>
+							<!-------->
+						</div>
+					<div class="clearfix"></div>
+				</div>
+			<!--notification menu end -->
+			<!-- //header-ends -->
+
+		<!-- //header-ends -->
+			<div id="page-wrapper">
+				<div class="inner-content">
+				      <div class="music-left">
+					      <!--banner-section-->
+							<div class="banner-section">
+								<div class="banner">
+									 <div class="callbacks_container">
+										<ul class="rslides callbacks callbacks1" id="slider4">
+											   	<li>
+														<div class="banner-img">
+															 <img src="../static/images/1921.webp" class="img-responsive" alt="">
+														 </div>
+														
+												</li>
+												<li>
+													<div class="banner-img">
+															 <img src="../static/images/gmz.webp" class="img-responsive" alt="">
+														 </div>
+
+												</li>
+												<li>
+												 <div class="banner-img">
+															 <img src="../static/images/bdt.webp" class="img-responsive" alt="">
+														 </div>
+														
+												</li>
+											</ul>
+										</div>
+										<!--banner-->
+									<script src="../static/js/responsiveslides.min.js"></script>
+								 <script>
+									// You can also use "$(window).load(function() {"
+									$(function () {
+									  // Slideshow 4
+									  $("#slider4").responsiveSlides({
+										auto: true,
+										pager:true,
+										nav:true,
+										speed: 500,
+										namespace: "callbacks",
+										before: function () {
+										  $('.events').append("<li>before event fired.</li>");
+										},
+										after: function () {
+										  $('.events').append("<li>after event fired.</li>");
+										}
+									  });
+								
+									});
+								  </script>
+								<div class="clearfix"> </div>
+							</div>
+						</div>	
+				<!--//End-banner-->
+					<!--albums-->
+					<!-- pop-up-box --> 
+							<link href="../static/css/popuo-box.css" rel="stylesheet" type="text/css" media="all">
+							<script src="../static/js/jquery.magnific-popup.js" type="text/javascript"></script>
+							 <script>
+									$(document).ready(function() {
+									$('.popup-with-zoom-anim').magnificPopup({
+										type: 'inline',
+										fixedContentPos: false,
+										fixedBgPos: true,
+										overflowY: 'auto',
+										closeBtnInside: true,
+										preloader: false,
+										midClick: true,
+										removalDelay: 300,
+										mainClass: 'my-mfp-zoom-in'
+									});
+									});
+							</script>		
+					<!--//pop-up-box -->
+						<div class="albums">
+
+								<div class="tittle-head">
+									<h3 class="tittle">个性化推荐 <span class="new" >个性</span></h3>
+									
+									<div class="clearfix"> </div>
+								</div>
+							<div id="recommend-list">
+
+							</div>
+
+											<div class="clearfix"> </div>
+										</div>
+					<!--//End-albums-->
+						<!--//discover-view-->
+						<div class="albums second">
+										<div class="tittle-head">
+											<h3 class="tittle">最新电影 <span class="new">NEW</span></h3>
+											
+											<div class="clearfix"> </div>
+										</div>
+											<div class="col-md-3 content-grid">
+												<img src="../static/images/album/三只小猪.webp" title="allbum-name" onclick="showSongPage(29)">
+												<div class="inner-info"><a href="" onclick="showSongPage(29)"><h5>《三只小猪3正义大联盟》</h5></a></div>
+											</div>
+											<div class="col-md-3 content-grid">
+													<img src="../static/images/album/天下无拐.webp" title="allbum-name" onclick="showSongPage(30)">
+													<div class="inner-info"><a href="" onclick="showSongPage(30)"><h5>《天下无拐》</h5></a></div>
+												</div>
+											<div class="col-md-3 content-grid">
+													<img src="../static/images/album/悬崖.webp" title="allbum-name" onclick="showSongPage(31)">
+													<div class="inner-info"><a href="" onclick="showSongPage(31)"><h5>悬崖</h5></a></div>
+												</div>
+											<div class="col-md-3 content-grid last-grid">
+													<img src="../static/images/album/狼行者.webp" title="allbum-name" onclick="showSongPage(32)">
+													<div class="inner-info"><a href="" onclick="showSongPage(32)"><h5>狼行者</h5></a></div>
+											</div>
+											<div class="col-md-3 content-grid">
+													<img src="../static/images/album/狼行者.webp" title="allbum-name" onclick="showSongPage(32)">
+													<div class="inner-info"><a href="" onclick="showSongPage(32)"><h5>狼行者</h5></a></div>
+											</div>
+											<div class="col-md-3 content-grid">
+												<img src="../static/images/album/大头儿子小头爸爸.webp" title="allbum-name" onclick="showSongPage(33)">
+												<div class="inner-info"><a href="" onclick="showSongPage(33)"><h5>新大头儿子和小头爸爸4：完美爸爸</h5></a></div>
+											</div>
+											<div class="col-md-3 content-grid">
+													<img src="../static/images/album/济公之降龙降世.webp" title="allbum-name" onclick="showSongPage(34)">
+													<div class="inner-info"><a href="" onclick="showSongPage(34)"><h5>济公之降龙降世</h5></a></div>
+											</div>
+											<div class="col-md-3 content-grid last-grid">
+													<img src="../static/images/album/大头儿子小头爸爸.webp" title="allbum-name" onclick="showSongPage(33)">
+													<div class="inner-info"><a href="" onclick="showSongPage(33)"><h5>新大头儿子和小头爸爸4：完美爸爸</h5></a></div>
+											</div>
+											<div class="clearfix"> </div>
+									</div>
+								<!--//discover-view-->
+							</div>
+							<!--//music-left-->
+						    <!--/music-right-->
+						   <div class="music-right">
+								<!--/video-main-->
+								 <div class="video-main">
+									<div class="video-record-list">
+										<div id="jp_container_1" class="jp-video jp-video-270p" role="application" aria-label="media player">
+											<div class="jp-type-playlist">
+												<div class="jp-MVplayer-home-list" >
+													<h3 class="title" ><b>最新预告片 </b><span class="new" >预告</span></h3>
+													<div>
+														<p>《1921》</p>
+														<video src="../static/video/火种.mp4" controls poster="../static/images/mvposter/1921.png" width="400px" height="250px"></video>
+														<br>
+														<br>
+													</div>
+														<P>《白蛇2青蛇劫起》</P>
+													<video src="../static/video/白蛇.mp4" controls poster="../static/images/mvposter/白蛇.png" width="400px" height="250px"></video>
+													<br>
+												</div>
+												<div class="jp-playlist_mine">
+													<h3 class="title"><b>高分影评 </b><span class="new" >HOT</span></h3>
+													<br><br>
+													<ul style="display: block;" class="user_songList_ul user_singlesongList_ul" id="user_collectsongList_ul">
+
+
+													</ul>
+												</div>
+												</div>
+												<div class="jp-no-solution" style="display: none;">
+													<span>Update Required</span>
+													To play the media you will need to either update your browser to a recent version or update your <a href="http://get.adobe.com/flashplayer/" target="_blank">Flash plugin</a>.
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- script for play-list -->
+				<link href="../static/css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css">
+				<script type="text/javascript" src="../static/js/jquery.jplayer.min.js"></script>
+				<script type="text/javascript" src="../static/js/jplayer.playlist.min.js"></script>
+				<script type="text/javascript">
+				//<![CDATA[
+				$(document).ready(function(){
+
+					new jPlayerPlaylist({
+						jPlayer: "#jquery_jplayer_1",
+						cssSelectorAncestor: "#jp_container_1"
+					}, [
+						
+						{
+							title:"1. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"2. Mark-Ronson-Uptown",
+							artist:"",
+							mp4: "../static/video/Mark-Ronson-Uptown.mp4",
+							ogv: "../static/video/Mark-Ronson-Uptown.ogv",
+							webmv: "../static/video/Mark-Ronson-Uptown.webm",
+							poster:"../static/video/play2.png"
+						},
+						{
+							title:"3. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"4. Maroon-Sugar",
+							artist:"",
+							mp4: "../static/video/Maroon-Sugar.mp4",
+							ogv: "../static/video/Maroon-Sugar.ogv",
+							webmv: "../static/video/Maroon-Sugar.webm",
+							poster:"../static/video/play4.png"
+						},
+						{
+							title:"5. Pharrell-Williams",
+							artist:"",
+							mp4: "../static/video/Pharrell-Williams.mp4",
+							ogv: "../static/video/Pharrell-Williams.ogv",
+							webmv: "../static/video/Pharrell-Williams.webm",
+							poster:"../static/video/play5.png"
+						},
+						{
+							title:"6. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"7. Pharrell-Williams",
+							artist:"",
+							mp4: "../static/video/Pharrell-Williams.mp4",
+							ogv: "../static/video/Pharrell-Williams.ogv",
+							webmv: "../static/video/Pharrell-Williams.webm",
+							poster:"../static/video/play5.png"
+						}
+					], {
+						swfPath: "../../dist/jplayer",
+						supplied: "webmv,ogv,mp4",
+						useStateClassSkin: true,
+						autoBlur: false,
+						smoothPlayBar: true,
+						keyEnabled: true
+					});
+
+				});
+				//]]>
+					</script>
+
+						<div class="review-slider" id="review-slider">
+								<div class="tittle-head">
+									<br><br>
+									<h3 class="tittle">最热电影 <span class="new"> HOT</span></h3>
+									<div class="clearfix"> </div>
+								</div>
+								 <ul id="flexiselDemo1">
+
+							</ul>
+							<script type="text/javascript">
+						$(window).load(function() {
+							
+						  $("#flexiselDemo1").flexisel({
+								visibleItems: 5,
+								animationSpeed: 1000,
+								autoPlay: true,
+								autoPlaySpeed: 3000,    		
+								pauseOnHover: false,
+								enableResponsiveBreakpoints: true,
+								responsiveBreakpoints: { 
+									portrait: { 
+										changePoint:480,
+										visibleItems: 2
+									}, 
+									landscape: { 
+										changePoint:640,
+										visibleItems: 3
+									},
+									tablet: { 
+										changePoint:800,
+										visibleItems: 4
+									}
+								}
+							});
+							});
+						</script>
+						<script type="text/javascript" src="../static/js/jquery.flexisel.js"></script>	
+						</div>
+								</div>
+							<div class="clearfix"></div>
+						<!--body wrapper end-->
+
+					</div>
+			  <!--body wrapper end-->
+			     <div class="footer">
+			
+						<h3 class="developer_Htitle"> About Us </h3>
+						<p class="developer_infor"> <span class="developer_title" >Developers：</span> WSP  LJX  LWW  ZS</p>
+						<p class="developer_infor"> <span class="developer_title">Phone：</span>  &nbsp;&nbsp;&nbsp;158########</p>
+						<p class="developer_infor"> <span class="developer_title">Email：</span> &nbsp;<span><a href="mailto:1219821955@qq.com">MailTo: 1219821955@qq.com</a></span></p>	
+					 </div>
+					 <div class="clearfix"> </div>
+				</div>
+				
+			</div>
+
+
+      <!-- main content end-->
+   </section>
+<script>
+	//评论
+	window.onload=function(){
+		addIndexComment()
+		addHotMovie()
+	}
+
+	//电影推荐
+	var recommendMoviesList=document.getElementById("recommend-list")
+	if(sessionStorage.loginStatus==1){
+		//用户登录后根据用户喜好推荐
+		var usr=JSON.parse(sessionStorage.onlineUsr)
+		for(let i in usr.userVO.recommendMovies){
+			//console.log(i)
+			let addrecommend=document.createElement("div")
+			addrecommend.className="col-md-3 content-grid"
+			addrecommend.innerHTML='<img src="'+usr.userVO.recommendMovies[i].image+'" title="allbum-name" onClick="showSongPage('+usr.userVO.recommendMovies[i].id+')"><a className="button play-icon popup-with-zoom-anim" href="" onclick="showSongPage('+usr.userVO.recommendMovies[i].id+')">'+usr.userVO.recommendMovies[i].name+'</a>'
+			recommendMoviesList.appendChild(addrecommend)
+		}
+	}else{
+		//用户未登录随机推荐
+		let addrecommend1=document.createElement("div")
+		addrecommend1.className="col-md-3 content-grid"
+		addrecommend1.innerHTML='<img src="../static/images/album/三只小猪.webp" title="allbum-name" onClick="showSongPage(1)"><a className="button play-icon popup-with-zoom-anim" href="">占个地方</a>'
+		recommendMoviesList.appendChild(addrecommend1)
+		let addrecommend2=document.createElement("div")
+		addrecommend2.className="col-md-3 content-grid"
+		addrecommend2.innerHTML='<img src="../static/images/album/三只小猪.webp" title="allbum-name" onClick="showSongPage(1)"><a className="button play-icon popup-with-zoom-anim" href="">占个地方</a>'
+		recommendMoviesList.appendChild(addrecommend2)
+		let addrecommend3=document.createElement("div")
+		addrecommend3.className="col-md-3 content-grid"
+		addrecommend3.innerHTML='<img src="../static/images/album/三只小猪.webp" title="allbum-name" onClick="showSongPage(1)"><a className="button play-icon popup-with-zoom-anim" href="">占个地方</a>'
+		recommendMoviesList.appendChild(addrecommend3)
+		let addrecommend4=document.createElement("div")
+		addrecommend4.className="col-md-3 content-grid"
+		addrecommend4.innerHTML='<img src="../static/images/album/三只小猪.webp" title="allbum-name" onClick="showSongPage(1)"><a className="button play-icon popup-with-zoom-anim" href="">占个地方</a>'
+		recommendMoviesList.appendChild(addrecommend4)
+	}
+
+
+
+</script>
+<script src="../static/js/jquery.nicescroll.js"></script>
+<script src="../static/js/scripts.js"></script>
+<script type="text/javascript" src="../static/js/ajax.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>用户界面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="../static/css/bootstrap.min.css" rel='stylesheet' type='text/css' charset="utf-8"/>
+<!-- Custom CSS -->
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' charset="utf-8"/>
+<!-- Graph CSS -->
+<link href="../static/css/font-awesome.css" rel="stylesheet" charset="utf-8"> 
+<!-- jQuery -->
+<!-- lined-icons -->
+<link rel="stylesheet" href="../static/css/icon-font.min.css" type='text/css' charset="utf-8"/>
+<!-- //lined-icons -->
+ <!-- Meters graphs -->
+<script src="../static/js/jquery-1.10.2.min.js"></script>
+
+</head> 
+   
+ <body class="sticky-header left-side-collapsed" onload="emptyUserPage()">
+    <section>
+      <!-- left side start-->
+		<div class="left-side sticky-left-side">
+
+			<!--logo and iconic logo start-->
+			<div class="logo">
+				<h1><a href="index">EchoBuzzing</a></h1>
+			</div>
+			<div class="logo-icon text-center">
+				<a href="index">EB</a>
+			</div>
+
+			<!--logo and iconic logo end-->
+			<div class="left-side-inner">
+
+				<!--sidebar nav start-->
+					<ul class="nav nav-pills nav-stacked custom-nav">
+						<li><a href="index"><i class="lnr lnr-home"></i><span>主页</span></a></li>
+						<li><a href="classify"><i class="lnr lnr-indent-increase"></i> <span>电影分类</span></a>  </li>
+						<li class="active"><a href="userPage"><i class="lnr lnr-music-note"></i><span>我的电影</span></a></li>
+					</ul>
+				<!--sidebar nav end-->
+			</div>
+		</div>
+		<!-- left side end-->
+				<!-- app-->
+			<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog facebook" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body">
+							<div class="app-grids">
+								<div class="app">
+						<div class="col-md-5 app-left mpl">
+							<h3>Mosaic mobile app on your smartphone!</h3>
+							<p>Download and Avail Special Songs Videos and Audios.</p>
+							<div class="app-devices">
+								<h5>Gets the app from</h5>
+								<a href="#"><img src="../static/images/1.png" alt=""></a>
+								<a href="#"><img src="../static/images/2.png" alt=""></a>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+						<div class="col-md-7 app-image">
+							<img src="../static/images/apps.png" alt="">
+						</div>
+						<div class="clearfix"></div>
+					</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //app-->
+		<!-- signup -->
+			<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body modal-spa">
+							<div class="sign-grids">
+								<div class="sign">
+									<div class="sign-right">
+    									<form action="changePassword" method="post">
+
+        									<h3>Change your password</h3>
+        									<br>
+        									<p> <label class="register_title">用户名：</label> <input id="user-name" type="text" name="name"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'password';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
+        									<p> <label class="register_title">原密码：</label> <input id="old-pwd" type="password" name="originalPassword"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'password';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
+        									<p> <label class="register_title">新密码：</label><input id="new-pwd1" type="password" name="newPassword"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Email';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
+        									<p> <label class="register_title">再次输入新密码：</label><input id="new-pwd2" type="password" name="newPassword2"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Password1';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required=""  style="color:gray"></p>	
+        									<p class="warning" id="change-pwd-warning"></p>
+        									<input type="button" value="CHANGE" onclick="userChangePwd()">
+    									</form>
+									</div>
+									<div class="clearfix"></div>						
+								</div>
+								<p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //signup -->
+
+		<!-- main content start-->
+		<div class="main-content">
+			<!-- header-starts -->
+			<div class="header-section">
+			<!--toggle button start-->
+			<a class="toggle-btn  menu-collapsed"><i class="fa fa-bars"></i></a>
+			<!--toggle button end-->
+			<!--notification menu start -->
+				<div class="menu-right">
+					<div class="profile_details">		
+						  <div class="col-md-4 serch-part">
+								<div id="sb-search" class="sb-search">
+									<form action="#" method="post" id="search-form">
+
+										<input class="sb-search-input" placeholder="Search" type="search" name="search" id="search-input">
+										<input class="sb-search-submit" type="button" value="" >
+										<span class="sb-icon-search" onclick="searchMusic()"> </span>
+									</form>
+								</div>
+							</div>
+							  <!-- search-scripts -->
+									<script src="../static/js/classie.js"></script>
+									<script src="../static/js/uisearch.js"></script>
+										<script>
+											new UISearch( document.getElementById( 'sb-search' ) );
+										</script>
+									<!-- //search-scripts -->
+											 <!---->
+											  <div class="col-md-4 player">
+												<!---->
+
+												<!--audio-->
+													<!---->
+												  <div>
+													  <a herf=""><span class="new" id="play1" onclick="searchFilmByType()" style="width: 140px;height: 40px;text-align:center;font-size:100%; padding-top: 7px; margin-top: 10px;">电影类型搜索</span></a>
+													  <a herf=""><span class="new" id="play2" onclick="searchFilmByName()" style="width: 140px;height: 40px;text-align:center;font-size:100%; padding-top: 7px; margin-top: 10px;">电影名搜索</span></a>
+												  </div>
+													
+												<!--/<a class="top-sign" href="#" data-toggle="modal" data-target="#myModal5"><i class="fa fa-sign-in"></i></a>/-->
+
+											</div>
+											<div class="col-md-4 login-pop">
+												<div id="loginpop"> <a href="#" id="loginButton" onclick="usrlogout()"><span>注销</span></a><a href="#" data-toggle="modal" data-target="#myModal5" id="registerButton"><span>修改密码</span></a>
+
+												</div>
+
+											</div>
+										<div class="clearfix"> </div>
+								</div>
+							<!-------->
+						</div>
+					<div class="clearfix"></div>
+				</div>
+			<!--notification menu end -->
+			<!-- //header-ends -->
+
+		<!-- //header-ends -->
+			<div id="page-wrapper">
+				
+				<div class="inner-content single">
+						    <!--/User-Title-->
+						<div class="tittle-head">
+									<h3 class="tittle">我的 <span class="new">Mine</span></h3>
+									<div class="clearfix"> </div>
+						</div>
+						<div class="user_information" style="width: 400px;" id="usr-img">
+							
+						</div>
+						<div style="position: absolute ;top:30%; left: 47%;">
+						<h3>用户名：</h3>
+						<div id="usr-name">
+							
+						</div>
+							<br>
+						</div>
+					    
+						<div class="single_left" >
+								<!--/User-Information-->
+							
+
+							<h3 class="tittle ListTitle">我收藏的电影 <a href="#" data-toggle="modal" data-target=""><span class="new">MyMovie</span></a></h3>
+							<div class="modal fade" id="newList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content modal-info">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+										</div>
+										<div class="modal-body modal-spa">
+											<div class="sign-grids">
+												<div class="sign">
+													<div class="sign-right">
+														<form action="#" method="post">
+
+															<p> <label class="register_title">歌单名：</label> <input name="songListName" id="list-item-name"type="text" value="歌单名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '歌单名';}" required=""></p>
+															<p> <label class="register_title">歌单类型：</label> <input id="list-type-name"type="text" value="歌单类型" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '歌单类型';}" required=""></p>
+															<div>
+															<p><label style="font-size:15px;float:left;padding-left:35px">歌单封面<label style="font-size:10px">(点击图片上传封面)</label>：</label></p>
+															<div id="cover-img" style="width:100px;height:100px;display:inline;position:relative;">
+															    <input id="upload-input" style="position: absolute; top: 0; bottom: 0; left: 0;right: 0; opacity: 0;" type="file" accept="image/gif, image/jpg, image/png" onchange="showImg(this)"/>
+															    <img id="upload" src="../static/images/songlist/cover.png" style="width: 100px; height: 100px; vertical-align: middle;" />
+															    
+															</div>
+															
+															</div>
+															
+															<input id="create-submit-btn" type="button" value="确定" onclick="createList()">
+														</form>
+													</div>
+													<div class="clearfix"></div>								
+												</div>
+												<br>
+												
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="user_songList_div">
+								
+								<ul style="display: block;" class="user_songList_ul" id="user_songList_ul">
+									
+								</ul>
+							</div>
+
+
+								<!-- script for play-list -->
+				<link href="../static/css/jplayer.blue.monday.min.css" rel="stylesheet" type="text/css">
+				<script type="text/javascript" src="../static/js/jquery.jplayer.min.js"></script>
+				<script type="text/javascript" src="../static/js/jplayer.playlist.min.js"></script>
+				<script type="text/javascript">
+				//<![CDATA[
+				$(document).ready(function(){
+
+					new jPlayerPlaylist({
+						jPlayer: "#jquery_jplayer_1",
+						cssSelectorAncestor: "#jp_container_1"
+					}, [
+						
+						{
+							title:"1. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"2. Mark-Ronson-Uptown",
+							artist:"",
+							mp4: "../static/video/Mark-Ronson-Uptown.mp4",
+							ogv: "../static/video/Mark-Ronson-Uptown.ogv",
+							webmv: "../static/video/Mark-Ronson-Uptown.webm",
+							poster:"../static/video/play2.png"
+						},
+						{
+							title:"3. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"4. Maroon-Sugar",
+							artist:"",
+							mp4: "../static/video/Maroon-Sugar.mp4",
+							ogv: "../static/video/Maroon-Sugar.ogv",
+							webmv: "../static/video/Maroon-Sugar.webm",
+							poster:"../static/video/play4.png"
+						},
+						{
+							title:"5. Pharrell-Williams",
+							artist:"",
+							mp4: "../static/video/Pharrell-Williams.mp4",
+							ogv: "../static/video/Pharrell-Williams.ogv",
+							webmv: "../static/video/Pharrell-Williams.webm",
+							poster:"../static/video/play5.png"
+						},
+						{
+							title:"6. Ellie-Goulding",
+							artist:"",
+							mp4: "../static/video/Ellie-Goulding.mp4",
+							ogv: "../static/video/Ellie-Goulding.ogv",
+							webmv: "../static/video/Ellie-Goulding.webm",
+							poster:"../static/video/play1.png"
+						},
+						{
+							title:"7. Pharrell-Williams",
+							artist:"",
+							mp4: "../static/video/Pharrell-Williams.mp4",
+							ogv: "../static/video/Pharrell-Williams.ogv",
+							webmv: "../static/video/Pharrell-Williams.webm",
+							poster:"../static/video/play5.png"
+						}
+					], {
+						swfPath: "../../dist/jplayer",
+						supplied: "webmv,ogv,mp4",
+						useStateClassSkin: true,
+						autoBlur: false,
+						smoothPlayBar: true,
+						keyEnabled: true
+					});
+
+				});
+				//]]>
+					</script>
+			<!-- //script for play-list -->
+						<!--//video-main-->
+				</div>
+				<div class="SongList" >
+					<h3 class="tittle SingleSongTitle">我的评论</h3>
+							<div class="user_songList_div">
+
+								<ul style="display: block;" class="user_songList_ul user_singlesongList_ul" id="user_collectsongList_ul">
+
+
+								</ul>
+
+							</div>
+				</div>
+				<div class="clearfix"> </div>
+						<!--//music-right-->
+
+			</div>
+						<!--body wrapper start-->
+					
+				</div>
+			<div class="clearfix"></div>
+						<!--body wrapper end-->
+
+					</div>
+			  <!--body wrapper end-->
+			     <div class="footer_two"></div>
+			</div>
+       
+      <!-- main content end-->
+   </section>
+
+<script>
+    var usr=JSON.parse(sessionStorage.onlineUsr)
+    //console.log(usr)
+    
+    var usrName='<h3>'+usr.userVO.name+'</h3>'
+    document.getElementById("usr-name").innerHTML=usrName
+    
+    var usrImg='<img src="'+usr.userVO.image+'" alt=""  width="400px" height="350px">'
+    document.getElementById("usr-img").innerHTML=usrImg
+    
+    var mylist=document.getElementById("user_songList_ul")
+    for(let i in usr.userVO.collectMovies){
+    	let add=document.createElement("li")
+    	add.id="usr-song-list"+usr.userVO.collectMovies[i].id
+    	
+    	add.innerHTML='<div class="jp-playlist-item-div user-songList-item-div"><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showSongPage('+usr.userVO.collectMovies[i].id+')">'+usr.userVO.collectMovies[i].name+'</a><img src="../static/images/delete.png"class="song-btn" onclick="deleteCollectMovie('+usr.userVO.collectMovies[i].id+')"></div>'
+    	mylist.appendChild(add)
+    }
+    /*
+    var mycollectlist=document.getElementById("user_collectsongList_ul")
+    for(let i in usr.userVO.collectSongLists){
+    	let add=document.createElement("li")
+    	add.id="usr-collectsong-list"+usr.userVO.collectSongLists[i].songListId
+    	add.innerHTML='<div class="jp-playlist-item-div SingleSong "><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showList('+usr.userVO.collectSongLists[i].songListId+')">'+usr.userVO.collectSongLists[i].songListName+'</a><img src="../static/images/delete.png"class="song-btn"onclick="deleteMyCollectList('+usr.userVO.collectSongLists[i].collectSongListId+')"></div>'
+    	mycollectlist.appendChild(add)
+    }
+*/
+    var myCommentList=document.getElementById("user_collectsongList_ul")
+	for(let i in usr.userVO.comments){
+		let add=document.createElement("div")
+		add.id="single-usr-film-comment"+usr.userVO.comments[i].id
+		add.className="usrcomment"
+		add.innerHTML='<hr><span><a onclick="showSongPage('+usr.userVO.comments[i].movieId+')">'+usr.userVO.comments[i].movieName+'</a></span><img src="../static/images/delete.png"class="song-btn" onclick="deleteMyComment('+usr.userVO.comments[i].id+')"><br><br><span>'+usr.userVO.comments[i].score+' 分</span><br></span><span>'+usr.userVO.comments[i].content+'</span><br><br><span style="font-size: small;">'+usr.userVO.comments[i].time+'</span>'
+		myCommentList.appendChild(add)
+	}
+	/*
+	let add=document.createElement("div")
+	add.className="single-usr"
+	add.innerHTML="<hr><span><a>评论电影</a></span><br><br><span>打分</span><br></span><span>评论内容</span><br><br><span style='font-size: small;'>评论时间</span>"
+	myCommentList.appendChild(add)
+	let add2=document.createElement("div")
+	add2.className="single-usr"
+	add2.innerHTML="<hr><span><a>评论电影</a></span><br><br><span>打分</span><br></span><span>评论内容</span><br><br><span style='font-size: small;'>评论时间</span>"
+	myCommentList.appendChild(add2)
+
+	 */
+    
+</script>
+<script src="../static/js/jquery.nicescroll.js"></script>
+<script src="../static/js/scripts.js"></script>
+<script src="../static/js/ajax.js"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>

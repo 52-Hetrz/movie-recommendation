@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.dao.Comment">
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="DATE"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="userid" property="userid" jdbcType="INTEGER"/>
+        <result column="movieid" property="movieid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="selectCommentsByUserId" resultType="com.example.demo.dao.Comment">
+        select *
+        from comment
+        where userid = #{userid}
+    </select>
+
+    <select id="selectCommentsByMovieId" resultType="com.example.demo.dao.Comment">
+        select *
+        from comment
+        where movieid = #{movieid}
+    </select>
+
+    <select id="selectCommentById" resultType="com.example.demo.dao.Comment">
+        select *
+        from comment
+        where id = #{id}
+    </select>
+
+    <insert id="insertComment">
+        insert
+        into comment (content, time, score, userid, movieid)
+        values (#{content},#{time},#{score},#{userid},#{movieid})
+    </insert>
+
+    <delete id="deleteComment">
+        delete
+        from comment
+        where id = #{id}
+    </delete>
+
+    <select id="recalculateAndUpdateMovieScore">
+        update movie
+        set score = (
+            select avg(score)
+            from comment
+            where movieid = #{movieid}
+        )
+        where id = #{movieid}
+    </select>
+
+    <select id="searchHotComments" resultType="com.example.demo.dao.Comment">
+        select *
+        from comment
+        order by time DESC
+            limit 0,2
+
+    </select>
+
+</mapper>

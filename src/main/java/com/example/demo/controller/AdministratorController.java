@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.VO.AdministratorVO;
 import com.example.demo.dao.Administrator;
+import com.example.demo.dao.Comment;
 import com.example.demo.dao.Movie;
+import com.example.demo.dao.User;
 import com.example.demo.service.impl.*;
 import com.example.demo.utils.RegisterAndLoginReturn;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 /**
  * @ClassName AdministratorController
@@ -98,6 +101,21 @@ public class AdministratorController {
         int adminid = Integer.parseInt(httpServletRequest.getParameter("adminid"));
         int userid = Integer.parseInt(httpServletRequest.getParameter("userid"));
         userService.deleteUser(userid);
+    }
+
+    @GetMapping("/administrator/getAllMovies")
+    public ArrayList<Movie> getAllMovies(){
+        return movieService.geyAllMovies();
+    }
+
+    @GetMapping("/administrator/getAllUsers")
+    public ArrayList<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/administrator/getAllComments")
+    public ArrayList<Comment> getAllComments(){
+        return commentService.getAllComments();
     }
 
 

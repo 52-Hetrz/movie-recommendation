@@ -94,4 +94,9 @@ public class MovieServiceImpl implements MovieService {
     public void deleteMovieById(Integer id) {
         movieMapper.deleteMovieById(id);
     }
+
+    @Override
+    public ArrayList<Movie> geyAllMovies() {
+        return movieMapper.selectAllMovies();
+    }
 }

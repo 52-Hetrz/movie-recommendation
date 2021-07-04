@@ -62,4 +62,10 @@ public interface MovieService {
      */
     void deleteMovieById(Integer id);
 
+    /**
+     * 获取所有的电影信息
+     * @return  ArrayList<Movie>
+     */
+    ArrayList<Movie> geyAllMovies();
+
 }

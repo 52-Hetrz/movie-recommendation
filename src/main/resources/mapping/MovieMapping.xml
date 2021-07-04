@@ -69,6 +69,11 @@
         where movie.id = hotmovie.movieid
     </select>
 
+    <select id="selectAllMovies" resultType="com.example.demo.dao.Movie">
+        select *
+        from movie
+    </select>
+
     <insert id="insertMovie">
         insert
         into movie(name, area, introduction, director,actor, publish_year, time, type, image, mv)

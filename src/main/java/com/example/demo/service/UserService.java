@@ -3,6 +3,8 @@ package com.example.demo.service;
 import com.example.demo.dao.User;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 @Service
 public interface UserService {
@@ -60,4 +62,10 @@ public interface UserService {
      * @param id 用户id
      */
     void deleteUser(int id);
+
+    /**
+     * 获取数据库中全部的用户信息
+     * @return ArrayList<User>
+     */
+    ArrayList<User> getAllUsers();
 }

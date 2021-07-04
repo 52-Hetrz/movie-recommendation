@@ -56,4 +56,10 @@ public interface CommentService {
      * @return ArrayList<CommentVO> 包含热门评论的集合
      */
     ArrayList<CommentVO> searchHotComments();
+
+    /**
+     * 获取数据库中全部的影评信息
+     * @return  ArrayList<Comment>
+     */
+    ArrayList<Comment> getAllComments();
 }

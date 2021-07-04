@@ -63,4 +63,8 @@
 
     </select>
 
+    <select id="selectAllComments" resultType="com.example.demo.dao.Comment">
+        select *
+        from comment
+    </select>
 </mapper>

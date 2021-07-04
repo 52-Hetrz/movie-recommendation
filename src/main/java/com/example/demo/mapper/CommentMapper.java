@@ -17,4 +17,5 @@ public interface CommentMapper {
     void recalculateAndUpdateMovieScore(int movieid);
     void deleteComment(int id);
     ArrayList<Comment> searchHotComments();
+    ArrayList<Comment> selectAllComments();
 }

@@ -63,4 +63,9 @@
         where id = #{param1}
     </delete>
 
+    <select id="selectAllUsers" resultType="com.example.demo.dao.User">
+        select *
+        from user
+    </select>
+
 </mapper>

@@ -82,6 +82,11 @@ public class CommentServiceImpl implements CommentService {
         return commentVOS;
     }
 
+    @Override
+    public ArrayList<Comment> getAllComments() {
+        return commentMapper.selectAllComments();
+    }
+
     CommentVO makeCommentVO(Comment comment){
         return new CommentVO(comment,
                 userService.searchUserNameById(comment.getUserid()),

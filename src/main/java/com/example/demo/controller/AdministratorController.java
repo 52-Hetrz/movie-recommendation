@@ -3,9 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.VO.AdministratorVO;
 import com.example.demo.dao.Administrator;
 import com.example.demo.dao.Movie;
-import com.example.demo.service.impl.AdministratorServiceImpl;
-import com.example.demo.service.impl.MovieClassificationServiceImpl;
-import com.example.demo.service.impl.MovieServiceImpl;
+import com.example.demo.service.impl.*;
 import com.example.demo.utils.RegisterAndLoginReturn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +30,12 @@ public class AdministratorController {
 
     @Autowired
     MovieClassificationServiceImpl movieClassificationService;
+
+    @Autowired
+    CommentServiceImpl commentService;
+
+    @Autowired
+    UserServiceImpl userService;
 
     @GetMapping("/administrator/login")
     public RegisterAndLoginReturn administratorLogin(HttpServletRequest httpServletRequest){
@@ -79,6 +83,21 @@ public class AdministratorController {
         String movieid = httpServletRequest.getParameter("movieid");
         String adminid = httpServletRequest.getParameter("adminid");
         movieService.deleteMovieById(Integer.parseInt(movieid));
+    }
+
+
+    @GetMapping("/administrator/deleteComment")
+    public void deleteComment(HttpServletRequest httpServletRequest){
+        int adminid = Integer.parseInt(httpServletRequest.getParameter("adminid"));
+        int commentid = Integer.parseInt(httpServletRequest.getParameter("commentid"));
+        commentService.deleteComment(commentid);
+    }
+
+    @GetMapping("/administrator/deleteUser")
+    public void deleteUser(HttpServletRequest httpServletRequest){
+        int adminid = Integer.parseInt(httpServletRequest.getParameter("adminid"));
+        int userid = Integer.parseInt(httpServletRequest.getParameter("userid"));
+        userService.deleteUser(userid);
     }
 
 

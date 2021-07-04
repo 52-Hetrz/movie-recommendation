@@ -56,4 +56,9 @@ public class UserServiceImpl implements UserService {
     public String selectPasswordById(int id) {
         return userMapper.selectPasswordById(id);
     }
+
+    @Override
+    public void deleteUser(int id) {
+        userMapper.deleteUser(id);
+    }
 }

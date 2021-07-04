@@ -22,4 +22,5 @@ public interface UserMapper {
     String selectPasswordByUserName(String name);
     void changePassword(String name, String password);
     String selectPasswordById(int id);
+    void deleteUser(int id);
 }

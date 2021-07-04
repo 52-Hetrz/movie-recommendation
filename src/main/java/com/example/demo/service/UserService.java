@@ -43,7 +43,7 @@ public interface UserService {
 
     /**
      * 修改密码
-     * @param id 用户id
+     * @param name 用户名
      * @param password 用户修改之后的密码
      */
     void changePassword(String name, String password);
@@ -54,4 +54,10 @@ public interface UserService {
      * @return String 用户密码
      */
     String selectPasswordById(int id);
+
+    /**
+     * 管理员删除用户账号
+     * @param id 用户id
+     */
+    void deleteUser(int id);
 }

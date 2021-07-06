@@ -351,40 +351,43 @@
    </section>
 
 <script>
-    var usr=JSON.parse(sessionStorage.onlineUsr)
-    //console.log(usr)
-    
-    var usrName='<h3>'+usr.userVO.name+'</h3>'
-    document.getElementById("usr-name").innerHTML=usrName
-    
-    var usrImg='<img src="'+usr.userVO.image+'" alt=""  width="400px" height="350px">'
-    document.getElementById("usr-img").innerHTML=usrImg
-    
-    var mylist=document.getElementById("user_songList_ul")
-    for(let i in usr.userVO.collectMovies){
-    	let add=document.createElement("li")
-    	add.id="usr-song-list"+usr.userVO.collectMovies[i].id
-    	
-    	add.innerHTML='<div class="jp-playlist-item-div user-songList-item-div"><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showSongPage('+usr.userVO.collectMovies[i].id+')">'+usr.userVO.collectMovies[i].name+'</a><img src="../static/images/delete.png"class="song-btn" onclick="deleteCollectMovie('+usr.userVO.collectMovies[i].id+')"></div>'
-    	mylist.appendChild(add)
-    }
-    /*
-    var mycollectlist=document.getElementById("user_collectsongList_ul")
-    for(let i in usr.userVO.collectSongLists){
-    	let add=document.createElement("li")
-    	add.id="usr-collectsong-list"+usr.userVO.collectSongLists[i].songListId
-    	add.innerHTML='<div class="jp-playlist-item-div SingleSong "><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showList('+usr.userVO.collectSongLists[i].songListId+')">'+usr.userVO.collectSongLists[i].songListName+'</a><img src="../static/images/delete.png"class="song-btn"onclick="deleteMyCollectList('+usr.userVO.collectSongLists[i].collectSongListId+')"></div>'
-    	mycollectlist.appendChild(add)
-    }
-*/
-    var myCommentList=document.getElementById("user_collectsongList_ul")
-	for(let i in usr.userVO.comments){
-		let add=document.createElement("div")
-		add.id="single-usr-film-comment"+usr.userVO.comments[i].id
-		add.className="usrcomment"
-		add.innerHTML='<hr><span><a onclick="showSongPage('+usr.userVO.comments[i].movieId+')">'+usr.userVO.comments[i].movieName+'</a></span><img src="../static/images/delete.png"class="song-btn" onclick="deleteMyComment('+usr.userVO.comments[i].id+')"><br><br><span>'+usr.userVO.comments[i].score+' 分</span><br></span><span>'+usr.userVO.comments[i].content+'</span><br><br><span style="font-size: small;">'+usr.userVO.comments[i].time+'</span>'
-		myCommentList.appendChild(add)
+	if(sessionStorage.loginStatus==1){
+		var usr=JSON.parse(sessionStorage.onlineUsr)
+		//console.log(usr)
+
+		var usrName='<h3>'+usr.userVO.name+'</h3>'
+		document.getElementById("usr-name").innerHTML=usrName
+
+		var usrImg='<img src="'+usr.userVO.image+'" alt=""  width="400px" height="350px">'
+		document.getElementById("usr-img").innerHTML=usrImg
+
+		var mylist=document.getElementById("user_songList_ul")
+		for(let i in usr.userVO.collectMovies){
+			let add=document.createElement("li")
+			add.id="usr-song-list"+usr.userVO.collectMovies[i].id
+
+			add.innerHTML='<div class="jp-playlist-item-div user-songList-item-div"><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showSongPage('+usr.userVO.collectMovies[i].id+')">'+usr.userVO.collectMovies[i].name+'</a><img src="../static/images/delete.png"class="song-btn" onclick="deleteCollectMovie('+usr.userVO.collectMovies[i].id+')"></div>'
+			mylist.appendChild(add)
+		}
+		/*
+        var mycollectlist=document.getElementById("user_collectsongList_ul")
+        for(let i in usr.userVO.collectSongLists){
+            let add=document.createElement("li")
+            add.id="usr-collectsong-list"+usr.userVO.collectSongLists[i].songListId
+            add.innerHTML='<div class="jp-playlist-item-div SingleSong "><a href="javascript:;" class="jp-playlist-item" tabindex="0" onclick="showList('+usr.userVO.collectSongLists[i].songListId+')">'+usr.userVO.collectSongLists[i].songListName+'</a><img src="../static/images/delete.png"class="song-btn"onclick="deleteMyCollectList('+usr.userVO.collectSongLists[i].collectSongListId+')"></div>'
+            mycollectlist.appendChild(add)
+        }
+    */
+		var myCommentList=document.getElementById("user_collectsongList_ul")
+		for(let i in usr.userVO.comments){
+			let add=document.createElement("div")
+			add.id="single-usr-film-comment"+usr.userVO.comments[i].id
+			add.className="usrcomment"
+			add.innerHTML='<hr><span><a onclick="showSongPage('+usr.userVO.comments[i].movieId+')">'+usr.userVO.comments[i].movieName+'</a></span><img src="../static/images/delete.png"class="song-btn" onclick="deleteMyComment('+usr.userVO.comments[i].id+')"><br><br><span>'+usr.userVO.comments[i].score+' 分</span><br></span><span>'+usr.userVO.comments[i].content+'</span><br><br><span style="font-size: small;">'+usr.userVO.comments[i].time+'</span>'
+			myCommentList.appendChild(add)
+		}
 	}
+
 	/*
 	let add=document.createElement("div")
 	add.className="single-usr"

@@ -86,5 +86,10 @@
         where id = #{param1}
     </delete>
 
+    <update id="updateMovie">
+        update movie
+        set name=#{name}, area=#{area}, introduction=#{introduction}, director=#{director}, actor=#{actor}, publish_year=#{publish_year}, time=#{time}, type=#{type}, image=#{image}
+        where id=#{id}
+    </update>
 
 </mapper>

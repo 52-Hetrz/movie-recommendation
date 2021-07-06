@@ -7,12 +7,16 @@ import com.example.demo.dao.Movie;
 import com.example.demo.dao.User;
 import com.example.demo.service.impl.*;
 import com.example.demo.utils.RegisterAndLoginReturn;
+import com.example.demo.utils.ToImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -64,7 +68,7 @@ public class AdministratorController {
     }
 
     @PostMapping("/administrator/insertMovie")
-    void insertMovie(HttpServletRequest httpServletRequest){
+    void insertMovie(HttpServletRequest httpServletRequest, @RequestParam("image") String image)  {
         String name = httpServletRequest.getParameter("name");
         String area = httpServletRequest.getParameter("area");
         String introduction = httpServletRequest.getParameter("introduction");
@@ -73,8 +77,8 @@ public class AdministratorController {
         String publish_year = httpServletRequest.getParameter("publish_year");
         String time = httpServletRequest.getParameter("time");
         String type = httpServletRequest.getParameter("type");
-        String imagePath = httpServletRequest.getParameter("image");
-        //String imagePath = ToImageUtil.filePath(ToImageUtil.base64ToByte(image));
+        //String imagePath = httpServletRequest.getParameter("image");
+        String imagePath = ToImageUtil.filePath(ToImageUtil.base64ToByte(image));
         String mv = "//";
         movieService.insertMovie(
                 new Movie(name,area,introduction,director,
@@ -118,6 +122,36 @@ public class AdministratorController {
         return commentService.getAllComments();
     }
 
+    @PostMapping("/administrator/updateMovie")
+    public void updateMovie(HttpServletRequest httpServletRequest){
+        String id = httpServletRequest.getParameter("id");
+        System.out.println(id);
+        String name =httpServletRequest.getParameter("name");
+        System.out.println(name);
+        String area = httpServletRequest.getParameter("area");
+        String introduction = httpServletRequest.getParameter("introduction");
+        String director = httpServletRequest.getParameter("director");
+        String actor = httpServletRequest.getParameter("actor");
+        String publish_year = httpServletRequest.getParameter("publish_year");
+        String time = httpServletRequest.getParameter("time");
+        String type = httpServletRequest.getParameter("type");
+        Movie databaseMovie = movieService.selectDatabaseMovieById(Integer.parseInt(id));
+        String imagePath = databaseMovie.getImage();
+        System.out.println(area);
+        System.out.println(introduction);
+        System.out.println(director);
+        System.out.println(actor);
+        System.out.println(publish_year);
+        System.out.println(time);
+        System.out.println(type);
+        Float score = databaseMovie.getScore();
+        String mv = "//";
+        movieService.updateMovie(new Movie(Integer.parseInt(id),
+                name,area, introduction,director, actor, publish_year, score,
+                time, type, imagePath, mv));
+
+    }
+
 
     /**
      * 检测两次输入的密码是否合法
@@ -131,10 +165,12 @@ public class AdministratorController {
         if(!firstPassword.equals(secondPassword)){
             return 2;
         }else{
-            if(firstPassword.length()<6)
+            if(firstPassword.length()<6){
                 return 3;
-            else
+            }
+            else{
                 return 1;
+            }
         }
     }
 }

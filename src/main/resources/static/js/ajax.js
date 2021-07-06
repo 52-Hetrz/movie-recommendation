@@ -21,15 +21,28 @@ function showClassifyList(listid){
 
 /************** index****************/
 function logout(){
-	if(sessionStorage.loginStatus==undefined)
-	sessionStorage.loginStatus=0
+	if(sessionStorage.loginStatus==undefined){
+		sessionStorage.loginStatus=0
+	}
+}
+function alogout(){
+	if(sessionStorage.aloginStatus==undefined){
+		sessionStorage.aloginStatus=0
+	}
 }
 function usrlogout(){
-	if(sessionStorage.loginStatus==1){
+	if(sessionStorage.loginStatus==1 || sessionStorage.loginStatus==undefined){
 		sessionStorage.loginStatus=0
 		window.location.href="userPage"
 	}
 		
+}
+function Administratorlogout(){
+	if(sessionStorage.aloginStatus==1){
+		sessionStorage.aloginStatus=0
+		window.location.href="administratorLoginPage"
+	}
+
 }
 
 function addIndexComment(){
@@ -487,8 +500,16 @@ function deleteCollectSong(songid){
 
 /************** userPage****************/
 function emptyUserPage(){
-	if(sessionStorage.loginStatus==0){
-		document.getElementById('page-wrapper').innerHTML='<form action="login" method="post" id="loginForm" style="position:absolute;left:40%;"><fieldset id="body"><fieldset><label for="name">用户名</label><input type="text" name="name" id="usr-page-name"></fieldset><fieldset><label for="password">密码</label><input type="password" name="password" id="usr-page-password"></fieldset><p class="warning" id="usr-page-login-warning"></p><input type="button" id="login" value="Login" onclick="userPageLogin()"><label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label></fieldset><span><a href="#">Forgot your password?</a></span></form>'
+	logout()
+	if(sessionStorage.loginStatus==0 || sessionStorage.loginStatus==undefined){
+		document.getElementById('page-wrapper').innerHTML='<form action="login" method="post" id="loginForm" style="position:absolute;left:40%;"><fieldset id="body"><fieldset><label for="name">用户名</label><input type="text" name="name" id="usr-page-name"></fieldset><fieldset><label for="password">密码</label><input type="password" name="password" id="usr-page-password"></fieldset><p class="warning" id="usr-page-login-warning"></p><input type="button" id="login" value="Login" onclick="userPageLogin()"><label for="checkbox"></label></fieldset><span></span></form>'
+	}
+}
+
+function emptyAdministratorPage(){
+	alogout()
+	if(sessionStorage.aloginStatus==0 || sessionStorage.aloginStatus==1){
+		document.getElementById('page-wrapper').innerHTML='<form action="login" method="post" id="loginForm" style="position:absolute;left:40%;"><fieldset id="body"><fieldset><label for="name">管理员用户名</label><input type="text" name="name" id="usr-page-name"></fieldset><fieldset><label for="password">密码</label><input type="password" name="password" id="usr-page-password"></fieldset><p class="warning" id="usr-page-login-warning"></p><input type="button" id="login" value="Login" onclick="adminiPageLogin()"><label for="checkbox"></label></fieldset><span></span></form>'
 	}
 }
 
@@ -517,6 +538,33 @@ function userPageLogin(){
 		}
 	})
 	
+}
+
+function adminiPageLogin(){
+	var usrname=document.getElementById('usr-page-name').value
+	//console.log(usrname)
+	var usrpwd=document.getElementById('usr-page-password').value
+	sessionStorage.adminpwd=usrpwd
+	$.ajax({
+		type:"get",
+		url:"/administrator/login",
+		data:{name:usrname,password:usrpwd},
+		dataType:'json',
+		success:function(RegisterAndLoginReturn){
+			console.log("管理员登录信息交互成功")
+			document.getElementById('usr-page-login-warning').innerHTML=RegisterAndLoginReturn.warning
+			sessionStorage.aloginStatus=1
+			sessionStorage.onlineadminName=RegisterAndLoginReturn.administratorVO.name
+			sessionStorage.onlineadminId=RegisterAndLoginReturn.administratorVO.id
+			sessionStorage.onlineAdmin=JSON.stringify(RegisterAndLoginReturn)
+			window.location.href="adminindex"
+			//console.log(sessionStorage.loginStatus+","+sessionStorage.onlineUsrName+","+sessionStorage.onlineUsrId)
+		},
+		error:function(RegisterAndLoginReturn){
+			console.log("管理员登录信息交互失败")
+		}
+	})
+
 }
 
 function updateUsr(){
@@ -675,6 +723,20 @@ function showImg(input) {
 	}
 	reader.readAsDataURL(file)
 }
+function showImg2(input) {
+	var file = input.files[0];
+	var reader = new FileReader()
+	// 图片读取成功回调函数
+	reader.onload = function(e) {
+		dealImage(e.target.result, 500, useImg);
+		function useImg(base64) {
+			str= base64;
+			sessionStorage.imginf2=str
+		}
+		document.getElementById('upload2').src=e.target.result
+	}
+	reader.readAsDataURL(file)
+}
 function getBase64Image(img) {
     var canvas = document.createElement("canvas");
     canvas.width = img.width;
@@ -760,3 +822,452 @@ function dealImage(base64, w, callback) {
     }
 }
 /********创建歌单end*********/
+
+/********后台管理start*********/
+/********电影管理start*********/
+function getAllMovies(){
+	deleteAddMovie()
+	reviseMovie()
+	$.ajax({
+		type:"get",
+		url:"/administrator/getAllMovies",
+		//data:{name:usrname,oldPassword:oldpwd,firstPassword:usrpwd1,secondPassword:usrpwd2},
+		dataType:'json',
+		success:function(movielist){
+			console.log("获得全部电影列表成功")
+			//解析全部列表
+			build_movies_table(movielist)
+			//解析分页信息
+			//build_movies_trip_page_info(movielist)
+			//解析分页条数据
+			//build_movies_page_nav(movielist)
+		},
+		error:function(movielist){
+			console.log("获得全部电影列表失败")
+		}
+	})
+}
+
+function build_movies_table(movielist){
+	$("#trips_table tbody").empty();
+	$.each(movielist,function(index,item){
+		var checkBox=$("<td><input type='checkbox' class='check_item'/></td>");
+		var id = $("<td></td>").append(item.id);
+		var moviename = $("<td></td>").append(item.name);
+		var moviearea = $("<td></td>").append(item.area);
+		//var startTimeText = item.startTime;
+		//去除时间后面的.0
+		//startTimeText = startTimeText.substring(0, startTimeText.lastIndexOf(':'));
+		var movieintroduction = $("<td></td>").append(item.introduction);
+		//var reachTimeText = item.reachTime;
+		//去除时间后面的.0
+		//reachTimeText = reachTimeText.substring(0, reachTimeText.lastIndexOf(':'));
+		var moviedirector = $("<td></td>").append(item.director);
+		var movieactor = $("<td></td>").append(item.actor);
+		var movieyear = $("<td></td>").append(item.publish_year);
+		var moviescore = $("<td></td>").append(item.score);
+		var movietime = $("<td></td>").append(item.time);
+		var movietype = $("<td></td>").append(item.type);
+		var movieimg = $("<td></td>").append("<img src='"+item.image+"' style='width:60%;height:100px;'>")
+		//查看途经站信息
+		/*
+		var button0 = $("<td></td>").append($("<button></button>").addClass("btn btn-default btn-sm look_btn").append($("<span></span>").attr("aria-hidden", true)).append("查看"));
+		var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
+		var button2 = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
+		var td_btn = $("<td></td>").append(button1).append(" ").append(button2);
+		*/
+		var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("修改");
+		var button2 = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
+		var td_btn = $("<td></td>").append(button1).append(button2);
+		$("<tr></tr>").append(checkBox).append(id).append(moviename).append(moviearea).append(movieintroduction).append(moviedirector).append(movieactor).append(movieyear).append(moviescore).append(movietime)
+			.append(movietype).append(movieimg).append(td_btn ).appendTo("#trips_table tbody");
+	})
+
+}
+
+//解析分页信息
+function build_movies_trip_page_info(result) {
+	$("#page_info_area").empty();
+	$("#page_info_area").append("当前" + result.data.pageNum + "页,总共" + result.data.pages +
+		"页，总共" + result.data.total + "条记录");
+	totalRecord = result.data.total;
+	currentPage=result.data.pageNum;
+	totalPage = result.data.pages;
+}
+//解析分页条数据
+function build_movies_page_nav(result) {
+	//console.log(result);
+	$("#page_nav_area").empty();
+	var ul = $("<ul></ul>").addClass("pagination");
+	var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+	var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
+	var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
+	var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+	//如果没有前一页，前一页和首页就不能点
+	if (result.data.hasPreviousPage == false) {
+		firstPageLi.addClass("disabled");
+		prePageLi.addClass("disabled");
+	} else {
+		//首页
+		firstPageLi.click(function () {
+			to_page(1);
+		});
+		prePageLi.click(function () {
+			to_page(result.data.pageNum - 1);
+		});
+	}
+	if (result.data.hasNextPage == false) {
+		nextPageLi.addClass("disabled");
+		lastPageLi.addClass("disabled");
+	} else {
+		//构建点击事件
+		nextPageLi.click(function () {
+			to_page(result.data.pageNum + 1);
+		});
+		lastPageLi.click(function () {
+			to_page(result.data.lastPage);
+		})
+	}
+	//添加首页和前一页
+	ul.append(firstPageLi).append(prePageLi);
+	//遍历添加页码
+	$.each(result.data.navigatepageNums, function (index, item) {
+		var numLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
+		//如果是当前选中页面，添加active标识
+		if (result.data.pageNum == item) {
+			numLi.addClass("active");
+		}
+		//给每个页码添加点击就跳转
+		numLi.click(function () {
+			to_page(item);
+		});
+		ul.append(numLi);
+	});
+	//添加下一页和末页
+	ul.append(nextPageLi).append(lastPageLi);
+	var navEle = $("<nav></nav>").append(ul);
+	navEle.appendTo("#page_nav_area");
+}
+
+//添加电影
+function adminAddMovie(){
+	$("#trip_add_modal_btn").click(function () {
+		//清除表单数据
+		$("#tripAddModal form")[0].reset();
+		$("#tripAddModal").modal({
+			backdrop: "static"
+		})
+	});
+
+	$("#movie_save_btn123").click(function () {
+		alert("click")
+		var moviename = $("#moviename_add_input").val();
+		var moviearea = $("#moviearea_add_input").val();
+		var movieintroduction = $("#movieintroduction_add_input").val();
+		var moviedirector =$("#moviedirector_add_input").val();
+		var movieactor = $("#movieactor_add_input").val();
+		var movieyear =$("#movieyear_add_input").val();
+		var movietime =$("#movietime_add_input").val();
+		var movietype =$("#movietype_add_input").val();
+		console.log(movietype)
+
+		$.ajax({
+			url: "/administrator/insertMovie",
+			type: "POST",
+			data:{name:moviename,area:moviearea, introduction:movieintroduction,director:moviedirector,actor:movieactor,publish_year:movieyear,time:movietime,type:movietype,image:"//"},
+			dataType:"json",
+			//contentType:"application/json;charset=UTF-8",
+			success: function (result) {
+				console.log("添加电影成功")
+				$("#tripAddModal").modal('hide');
+				/*
+				if (result.code == 200 && result.data.message == "success"){
+					//1.关闭modal框
+					$("#tripAddModal").modal('hide');
+					//2.来到最后一页，显示刚才保存的数据
+					//to_page(totalPage);
+				}else {
+					//1.关闭modal框
+					$("#tripAddModal").modal('hide');
+					alert(result.data.message);
+				}
+
+				 */
+			},
+			error:function(result){
+				console.log("添加电影失败")
+			}
+		});
+	});
+
+	}
+
+	function movie_add_save(){
+		var moviename = $("#moviename_add_input").val();
+		var moviearea = $("#moviearea_add_input").val();
+		var movieintroduction = $("#movieintroduction_add_input").val();
+		var moviedirector =$("#moviedirector_add_input").val();
+		var movieactor = $("#movieactor_add_input").val();
+		var movieyear =$("#movieyear_add_input").val();
+		var movietime =$("#movietime_add_input").val();
+		var movietype =$("#movietype_add_input").val();
+		var listimg=sessionStorage.imginf
+		//console.log(movietype)
+
+		$.ajax({
+			url: "/administrator/insertMovie",
+			type: "POST",
+			data:{name:moviename,area:moviearea, introduction:movieintroduction,director:moviedirector,actor:movieactor,publish_year:movieyear,time:movietime,type:movietype,image:listimg},
+			dataType:"text",
+			//contentType:"application/json;charset=UTF-8",
+			success: function (result) {
+				console.log("添加电影成功")
+				$("#tripAddModal").modal('hide');
+				window.location.href="/admin/moviemanage"
+			},
+			error:function(result){
+				console.log("添加电影失败")
+			}
+		});
+	}
+
+function deleteAddMovie() {
+	$(document).on("click",".delete_btn",function () {
+		//1.弹出确认删除对话框
+		//var startDate=$(this).parents("tr").find("td:eq(4)").text().slice(0,10);
+		//var carNum=$(this).parents("tr").find("td:eq(6)").text();
+		var id=$(this).parents("tr").find("td:eq(1)").text();
+		if(confirm("确认删除所选电影吗")){
+			// alert(id);
+			//确认，发送ajax请求删除
+			$.ajax({
+				url:"/administrator/deleteMovie",
+				type:"get",
+				data:{movieid:id,adminid:sessionStorage.onlineadminId},
+				success:function (data) {
+					console.log("电影删除成功")
+					window.location.href="/admin/moviemanage"
+				},
+				error:function(data){
+					console.log("电影删除失败")
+				}
+			})
+		}
+	})
+}
+
+function reviseMovie(){
+	$(document).on("click",".edit_btn",function () {
+		//清除表单数据
+		$("#tripReviseModal form")[0].reset();
+
+		var id= $(this).parent().parent().children("td").eq(1).text();
+		//将id的值传递给修改按钮的属性，方便发送Ajax请求
+		$("#trip_revise_btn").attr("edit-id",id);
+
+		var moviename=$(this).parent().parent().children("td").eq(2).text();
+		var moviearea=$(this).parent().parent().children("td").eq(3).text();
+		var movieintroduction=$(this).parent().parent().children("td").eq(4).text();
+		var moviedirector=$(this).parent().parent().children("td").eq(5).text();
+		var movieactor=$(this).parent().parent().children("td").eq(6).text();
+		var movieyear=$(this).parent().parent().children("td").eq(7).text();
+		var movietime=$(this).parent().parent().children("td").eq(9).text();
+		var movietype=$(this).parent().parent().children("td").eq(10).text();
+
+		//var listimg=sessionStorage.imginf
+		$("#moviename_revise_input").val(moviename);
+		$("#moviearea_revise_input").val(moviearea);
+		$("#movieintroduction_revise_input").val(movieintroduction);
+		$("#moviedirector_revise_input").val(moviedirector);
+		$("#movieactor_revise_input").val(movieactor);
+		$("#movieyear_revise_input").val(movieyear);
+		$("#movietime_revise_input").val(movietime);
+		$("#movietype_revise_input").val(movietype);
+		//console.log($("#movietype_add_input").val())
+		$("#tripReviseModal").modal({
+			backdrop: "static"
+		})
+	});
+	//2.为模态框中的修改按钮绑定事件，更新员工信息
+	$("#trip_revise_btn").click(function () {
+		//2.验证通过后发送ajax请求保存更新的员工数据
+		//如果要直接发送PUT之类的请求
+		//在WEB.xml配置HttpPutFormContentFilter过滤器即可
+		//这里未使用如上所述方法
+		//获取编辑后的
+		var id = $(this).attr("edit-id");
+		var moviename = $("#moviename_revise_input").val();
+		var moviearea = $("#moviearea_revise_input").val();
+		var movieintroduction = $("#movieintroduction_revise_input").val();
+		var moviedirector =$("#moviedirector_revise_input").val();
+		var movieactor = $("#movieactor_revise_input").val();
+		var movieyear =$("#movieyear_revise_input").val();
+		var movietime =$("#movietime_revise_input").val();
+		var movietype =$("#movietype_revise_input").val();
+
+		$.ajax({
+			url:"/administrator/updateMovie",
+			type:"POST",
+			data:{id:id,name:moviename,area:moviearea,introduction:movieintroduction,director:moviedirector,actor:movieactor,publish_year:movieyear,time:movietime,type:movietype,adminid:sessionStorage.onlineadminId},
+			dataType:"text",
+			//contentType:"application/json;charset=UTF-8",
+			success:function () {
+				//1.关闭modal框
+				$("#tripReviseModal").modal('hide');
+				//2.来到当前页，显示刚才保存的数据
+				console.log("电影修改成功")
+				window.location.href="/admin/moviemanage"
+			},
+			error:function(){
+				console.log("电影修改失败")
+			}
+		})
+
+	})
+}
+/********电影管理end*********/
+/********用户管理start*********/
+function getAllUser(){
+	deleteAddUser()
+	$.ajax({
+		type:"get",
+		url:"/administrator/getAllUsers",
+		//data:{name:usrname,oldPassword:oldpwd,firstPassword:usrpwd1,secondPassword:usrpwd2},
+		dataType:'json',
+		success:function(userlist){
+			console.log("获得全部用户列表成功")
+			//解析全部列表
+			build_users_table(userlist)
+			//解析分页信息
+			//build_movies_trip_page_info(movielist)
+			//解析分页条数据
+			//build_movies_page_nav(movielist)
+		},
+		error:function(userlist){
+			console.log("获得全部用户列表失败")
+		}
+	})
+}
+
+function build_users_table(userlist){
+	//清空table表格
+	$("#users_table tbody").empty();
+	//var users = result.data.list;
+
+	//遍历元素
+	$.each(userlist, function (index, item) {
+		var checkBox=$("<td><input type='checkbox' class='check_item'/></td>");
+		var id = $("<td></td>").append(item.id);
+		var username = $("<td></td>").append(item.name);
+		var usrpwd = $("<td></td>").append(item.password);
+		var usrmail = $("<td></td>").append(item.mail);
+		var uimg = "<img src='"+item.image+"' style='width:40%;height:180px;'>"
+		var usrimg = $("<td></td>").append(uimg);
+
+		//var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
+		var button2 = $("<button></button>").addClass("tn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
+		var td_btn = $("<td></td>").append(button2);
+		$("<tr></tr>").append(checkBox).append(id).append(username).append(usrpwd).append(usrmail).append(usrimg)
+			.append(td_btn ).appendTo("#users_table tbody");
+
+	})
+
+}
+
+function deleteAddUser() {
+	$(document).on("click",".delete_btn",function () {
+		//1.弹出确认删除对话框
+		var username=$(this).parents("tr").find("td:eq(2)").text();
+		var id=$(this).parents("tr").find("td:eq(1)").text();
+		if(confirm("确认删除用户："+username+"吗？")){
+			// alert(id);
+			//确认，发送ajax请求删除
+			$.ajax({
+				url:"/administrator/deleteUser",
+				type:"get",
+				data:{userid:id,adminid:sessionStorage.onlineadminId},
+				success:function (result) {
+					console.log("用户删除成功")
+					window.location.href="/admin/usrmanage"
+				},
+				error:function(result){
+					console.log("用户删除失败")
+				}
+			})
+		}
+	})
+}
+/********用户管理end*********/
+/********影评管理start*********/
+function getAllComments(){
+	deleteAddComment()
+	$.ajax({
+		type:"get",
+		url:"/administrator/getAllComments",
+		//data:{name:usrname,oldPassword:oldpwd,firstPassword:usrpwd1,secondPassword:usrpwd2},
+		dataType:'json',
+		success:function(commetnlist){
+			console.log("获得全部评论列表成功")
+			//解析全部列表
+			build_comment_table(commetnlist)
+			//解析分页信息
+			//build_movies_trip_page_info(movielist)
+			//解析分页条数据
+			//build_movies_page_nav(movielist)
+		},
+		error:function(commentlist){
+			console.log("获得全部评论列表失败")
+		}
+	})
+}
+
+function build_comment_table(commetnlist) {
+	//清空table表格
+	$("#orders_table tbody").empty();
+	//var orders = result.data.list;
+
+	//遍历元素
+	$.each(commetnlist, function (index, item) {
+		var checkBox=$("<td><input type='checkbox' class='check_item'/></td>");
+		var id = $("<td></td>").append(item.id);
+		var content = $("<td></td>").append(item.content);
+		var time = $("<td></td>").append(item.time);
+		var score = $("<td></td>").append(item.score);
+		var userid = $("<td></td>").append(item.userid);
+		var movieid = $("<td></td>").append(item.movieid);
+
+		//var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("改变状态");
+		var button2 = $("<button></button>").addClass("tn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
+		var td_btn = $("<td></td>").append(button2);
+		$("<tr></tr>").append(checkBox).append(id).append(content).append(time).append(score).append(userid).append(movieid)
+			.append(td_btn ).appendTo("#orders_table tbody");
+
+	})
+}
+
+function deleteAddComment(){
+	$(document).on("click",".delete_btn",function () {
+		//1.弹出确认删除对话框
+		var id=$(this).parents("tr").find("td:eq(1)").text();
+		if(confirm("确认删除影评号："+id+" 吗？")){
+			//alert(id);
+			//确认，发送ajax请求删除
+			$.ajax({
+				url:"/administrator/deleteComment",
+				type:"get",
+				data:{commentid:id,adminid:sessionStorage.onlineadminId},
+				success:function (result) {
+					console.log("评论删除成功")
+					window.location.href="/admin/commentmanage"
+				},
+				error:function(result){
+					console.log("评论删除失败")
+				}
+			})
+		}
+	})
+}
+/********影评管理end*********/
+function pagetousr(){
+	//window.location.href="/admin/usrmanage"
+}

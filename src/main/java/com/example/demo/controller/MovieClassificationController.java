@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.VO.MovieClassificationVO;
 import com.example.demo.service.MovieClassificationService;
+import com.example.demo.service.impl.MovieClassificationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 public class MovieClassificationController {
     @Autowired
-    MovieClassificationService movieClassificationService;
+    MovieClassificationServiceImpl movieClassificationService;
 
     @GetMapping("/searchMovieClassification")
     public MovieClassificationVO searchMovieClassification(HttpServletRequest httpServletRequest){

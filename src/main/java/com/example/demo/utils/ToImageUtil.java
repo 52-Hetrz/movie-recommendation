@@ -85,7 +85,7 @@ public class ToImageUtil {
             out.write(b);
             out.flush();
             out.close();
-            imgPath = "./static/images/"+fileName;
+            imgPath = "../static/images/"+fileName;
         } catch (Exception e) {
             imgPath = null;
             e.printStackTrace();

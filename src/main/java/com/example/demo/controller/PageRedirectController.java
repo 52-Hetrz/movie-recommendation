@@ -40,4 +40,28 @@ public class PageRedirectController {
 		return "administratorLoginPage";
 	}
 
+	@RequestMapping("/adminindex")
+	public String showAdministratorIndexPage() {
+		return "index_a";
+	}
+
+	@RequestMapping("/adminv1index")
+	public String showAdministratorv1IndexPage() {
+		return "index_v1";
+	}
+
+	@RequestMapping("/admin/usrmanage")
+	public String showAdminUsrManagePage() {
+		return "userlist";
+	}
+
+	@RequestMapping("/admin/moviemanage")
+	public String showAdminMovieManagePage() {
+		return "moviemanage";
+	}
+
+	@RequestMapping("/admin/commentmanage")
+	public String showAdminCommentManagePage() {
+		return "commentmanage";
+	}
 }

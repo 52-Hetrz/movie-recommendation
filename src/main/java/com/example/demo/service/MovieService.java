@@ -30,6 +30,14 @@ public interface MovieService {
      */
     MovieVO selectMovieById(int id);
 
+
+    /**
+     * 根据id查找电影
+     * @param id 电影id
+     * @return Movie：数据库信息
+     */
+    Movie selectDatabaseMovieById(int id);
+
     /**
      * 根据用户输入检索电影名匹配的电影
      * @param name 用户输入内容
@@ -67,5 +75,11 @@ public interface MovieService {
      * @return  ArrayList<Movie>
      */
     ArrayList<Movie> geyAllMovies();
+
+    /**
+     * 管理员更新电影信息
+     * @param movie Movie Dao
+     */
+    void updateMovie(Movie movie);
 
 }

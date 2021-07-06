@@ -19,4 +19,5 @@ public interface MovieMapper {
     void insertMovie(Movie movie);
     void deleteMovieById(Integer id);
     ArrayList<Movie> selectAllMovies();
+    void updateMovie(Movie movie);
 }

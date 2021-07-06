@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <title> 电影推荐系统后台管理</title>
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href=""> <link href="../static/cssa/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../static/cssa/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="../static/cssa/animate.css" rel="stylesheet">
+    <link href="../static/cssa/style.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden" onload="pagetousr()">
+    <div id="wrapper">
+        <!--左侧导航开始-->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs" style="font-size:20px;">
+                                        <i class="fa fa-area-chart"></i>
+                                        <strong class="font-bold">电影推荐管理系统</strong>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="logo-element">电影推荐管理系统
+                        </div>
+                    </li>
+                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+                        <span class="ng-scope">分类</span>
+                    </li>
+
+                    <li>
+                        <a class="J_menuItem" href="/admin/usrmanage"><i class="fa fa-cloud-upload"></i> <span class="nav-label">用户管理</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/moviemanage"><i class="fa fa-table"></i> <span class="nav-label">电影管理</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="/admin/commentmanage"><i class="fa fa-table"></i> <span class="nav-label">影评管理</span></a>
+                    </li>
+                    <li class="line dk"></li>
+
+                </ul>
+            </div>
+        </nav>
+        <!--左侧导航结束-->
+        <!--右侧部分开始-->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+
+            <div class="row J_mainContent" id="content-main">
+                <iframe id="J_iframe" width="100%" height="100%" src="/admin/usrmanage?v=4.0" frameborder="0" data-id="/admin/usrmanage" seamless></iframe>
+            </div>
+        </div>
+        <!--右侧部分结束-->
+    </div>
+ 
+    <!-- 全局js -->
+    <script src="../static/jsa/jquery.min.js?v=2.1.4"></script>
+    <script src="../static/jsa/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../static/jsa/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../static/jsa/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../static/jsa/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="../static/jsa/hAdmin.js?v=4.1.0"></script>
+    <script type="text/javascript" src="../static/jsa/index.js"></script>
+
+    <!-- 第三方插件 -->
+    <script src="../static/jsa/plugins/pace/pace.min.js"></script>
+    <script src="../static/jsa/common.js"></script>
+    <script src="../static/js/ajax.js"></script>
+
+
+</body>
+
+</html>

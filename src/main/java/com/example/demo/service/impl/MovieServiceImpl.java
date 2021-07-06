@@ -99,4 +99,14 @@ public class MovieServiceImpl implements MovieService {
     public ArrayList<Movie> geyAllMovies() {
         return movieMapper.selectAllMovies();
     }
+
+    @Override
+    public void updateMovie(Movie movie) {
+        movieMapper.updateMovie(movie);
+    }
+
+    @Override
+    public Movie selectDatabaseMovieById(int id) {
+        return movieMapper.selectMovieById(id);
+    }
 }

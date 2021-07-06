@@ -659,8 +659,8 @@ ul.nav li a span {
    position: absolute;
   right:90px;
   width: 0%;
-  min-width:70px;
-  height:65px;
+  min-width:57px;
+  height:57px;
   float: right;
   overflow: hidden;
   -webkit-transition: width 0.3s;
@@ -704,7 +704,7 @@ ul.nav li a span {
 	height:40px;
 	display: block;
 	position: absolute;
-	right: 1%;
+	right: -7px;
 	top: 0%;
 	padding: 0;
 	margin: 0;
@@ -1224,7 +1224,7 @@ fieldset#body {
   padding: 6px;
   font-size: 0.8125em;
   -webkit-apperance: none;
-  outline: none
+  outline: none;
   font-family: 'Open Sans', sans-serif;
 }
 #body label i {

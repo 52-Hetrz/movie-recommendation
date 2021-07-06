@@ -77,8 +77,14 @@ public class CommentServiceImpl implements CommentService {
     public ArrayList<CommentVO> searchHotComments() {
         ArrayList<Comment> comments = commentMapper.searchHotComments();
         ArrayList<CommentVO> commentVOS = new ArrayList<>();
-        for(Comment comment:comments)
+        for(Comment comment:comments){
+            String commentContent = comment.getContent();
+            if(commentContent.length() > 40){
+                comment.setContent(commentContent.substring(0,40)+"......");
+            }
             commentVOS.add(makeCommentVO(comment));
+        }
+
         return commentVOS;
     }
 

@@ -91,19 +91,18 @@
 									<div class="sign-right">
     									<form action="changePassword" method="post">
 
-        									<h3>Change your password</h3>
+        									<h3>修改密码</h3>
         									<br>
         									<p> <label class="register_title">用户名：</label> <input id="user-name" type="text" name="name"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'password';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
         									<p> <label class="register_title">原密码：</label> <input id="old-pwd" type="password" name="originalPassword"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'password';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
         									<p> <label class="register_title">新密码：</label><input id="new-pwd1" type="password" name="newPassword"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Email';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required="" style="color:gray"></p>
         									<p> <label class="register_title">再次输入新密码：</label><input id="new-pwd2" type="password" name="newPassword2"	value="" onfocus="this.value = '';this.style.color='black';" onblur="if (this.value == '') {this.value = 'Password1';} if(this.value==''||this.value=='Name'){this.style.color='gray';}" required=""  style="color:gray"></p>	
         									<p class="warning" id="change-pwd-warning"></p>
-        									<input type="button" value="CHANGE" onclick="userChangePwd()">
+        									<input type="button" value="确认修改" onclick="userChangePwd()">
     									</form>
 									</div>
 									<div class="clearfix"></div>						
 								</div>
-								<p>By logging in you agree to our <span>Terms and Conditions</span> and <span>Privacy Policy</span></p>
 							</div>
 						</div>
 					</div>

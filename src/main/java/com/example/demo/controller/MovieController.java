@@ -44,7 +44,9 @@ public class MovieController {
     @GetMapping("/fuzzySearchMovieByType")
     public ArrayList<MovieVO> fuzzySearchMovieByType(HttpServletRequest httpServletRequest){
         String type = httpServletRequest.getParameter("type");
-        return movieService.fuzzySelectMovieByType(type);
+        String newValue = type.replace("","%");
+        String after = newValue.substring(1,newValue.length()-1);
+        return movieService.fuzzySelectMovieByType(after);
     }
 
     @GetMapping("/searchHotMovies")

@@ -61,11 +61,15 @@
     <select id="searchHotMovies" resultType="com.example.demo.dao.Movie">
         SELECT movie.*
         from movie, (
-            SELECT movieid
-            from `comment`
-            GROUP BY movieid
+            SELECT `comment`.movieid
+            FROM comment, (select id
+                from movie
+                ORDER BY publish_year DESC
+                LIMIT 0,15) as newmovie
+            WHERE `comment`.movieid = newmovie.id
+            GROUP BY `comment`.movieid
             ORDER BY COUNT(*) DESC
-                LIMIT	0,8) as hotmovie
+            LIMIT 0,8) as hotmovie
         where movie.id = hotmovie.movieid
     </select>
 

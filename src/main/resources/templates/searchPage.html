@@ -223,7 +223,7 @@
     var movielist=JSON.parse(sessionStorage.searchResult)
     for(let i in movielist){
         let add=document.createElement("tr")
-        add.innerHTML='<div id="list-item'+movielist[i].id+'"><div style="margin: 3%;"><div class="song-img" ><a href="" onclick="showSongPage('+movielist[i].id+')"><img src="'+movielist[i].image+'" class="img-responsive" alt="" /></a></div><div class="song-text"><a href="" onclick="showSongPage('+movielist[i].id+')">《'+movielist[i].name+'》</a><br><br><span class="post-date"style="font-size: small;">上映时间：'+movielist[i].publish_year+'</span></a><br><span class="post-date"style="font-size: small;">导演：'+movielist[i].director+'</span><br><span class="post-date"style="font-size: small;">演员：'+movielist[i].actor+'</span></div></div><div class="clearfix"></div></div></div>'
+        add.innerHTML='<div id="list-item'+movielist[i].id+'"><div style="margin: 3%;"><div class="song-img" ><a href="" onclick="showSongPage('+movielist[i].id+')"><img src="'+movielist[i].image+'" class="img-responsive" alt="" onclick="showSongPage('+movielist[i].id+')"/></a></div><div class="song-text"><a href="" onclick="showSongPage('+movielist[i].id+')">《'+movielist[i].name+'》</a><br><br><span class="post-date"style="font-size: small;">上映时间：'+movielist[i].publish_year+'</span></a><br><span class="post-date"style="font-size: small;">导演：'+movielist[i].director+'</span><br><span class="post-date"style="font-size: small;">演员：'+movielist[i].actor+'</span></div></div><div class="clearfix"></div></div></div>'
         songlisttable.appendChild(add)
     }
 

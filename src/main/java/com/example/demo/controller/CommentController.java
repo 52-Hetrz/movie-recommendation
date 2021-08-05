@@ -51,7 +51,11 @@ public class CommentController {
     @GetMapping("/deleteComment")
     public void deleteComment(HttpServletRequest httpServletRequest){
         int id = Integer.parseInt(httpServletRequest.getParameter("id"));
+        CommentVO comment = commentService.searchCommentById(id);
+        int movieid = comment.getMovieId();
         commentService.deleteComment(id);
+        commentService.recalculateAndUpdateMovieScore(movieid);
+
     }
 
     @GetMapping("/searchHotComments")

@@ -868,7 +868,7 @@ function build_movies_table(movielist){
 		var moviescore = $("<td></td>").append(item.score);
 		var movietime = $("<td></td>").append(item.time);
 		var movietype = $("<td></td>").append(item.type);
-		var movieimg = $("<td></td>").append("<img src='"+item.image+"' style='width:60%;height:100px;'>")
+		var movieimg = $("<td></td>").append("<img src='"+item.image+"' style='height:100px;'>")
 		//查看途经站信息
 		/*
 		var button0 = $("<td></td>").append($("<button></button>").addClass("btn btn-default btn-sm look_btn").append($("<span></span>").attr("aria-hidden", true)).append("查看"));
